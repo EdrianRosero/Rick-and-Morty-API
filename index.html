@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Rick And Morty</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: url(https://raw.githubusercontent.com/EdrianRosero/Rick-and-Morty/main/IMAGES/BODY-BG.jpg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: "Mochiy Pop One", sans-serif;
+            margin: 0;
+        }
+
+        .header-bar {
+            background-color: #28282B;
+            border-radius: 10px;
+            width: 100%;
+            text-align: center;
+            padding: 2%;
+            position: sticky;
+            top: 0;
+            margin-bottom: 2%;
+        }
+
+        h1 {
+            color: white;
+            font-size: 40px;
+            text-align: center;
+            margin: 0px;
+        }
+
+        .cartoon {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .character-card {
+            background-color: #36454F;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            text-align: center;
+            width: 20%;
+        }
+
+        .character-card:hover {
+            transform: scale(1.1);
+        }
+
+        .cartoonTitle {
+            font-family: "Montserrat", sans-serif;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .cartoon-image {
+            max-width: 100%;
+            height: 80%;
+            border-radius: 10px;
+        }
+
+        @media (min-width: 300px) {
+            .header-bar {
+                max-width: 100%;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            .character-card {
+                width: 80%;
+            }
+
+            .cartoonTitle {
+                font-size: 10px
+            }
+        }
+
+        @media (min-width: 400px) {
+            .cartoonTitle {
+                font-size: 15px;
+            }
+        }
+
+        @media (min-width: 600px) {
+            .character-card {
+                width: 55%;
+            }
+
+            .cartoonTitle {
+                font-size: 15px
+            }
+        }
+
+        @media (min-width: 700px) {
+            .header-bar {
+                max-width: 100%;
+            }
+
+            h1 {
+                font-size: 40px;
+
+            }
+
+            .character-card {
+                width: 50%;
+            }
+
+            .cartoonTitle {
+                font-size: 16px;
+            }
+        }
+
+        @media (min-width: 800px) {
+            .character-card {
+                width: 45%;
+            }
+        }
+
+        @media (min-width: 1080px) {
+            .character-card {
+                width: 26%;
+
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header-bar">
+        <h1>Rick And Morty</h1>
+    </div>
+
+    <div class="cartoon" id="cartoonTitle"></div>
+
+</body>
+
+<script>
+
+    async function fetchDataAndPopulateGallery() {
+        const response = await fetch('https://api.sampleapis.com/rickandmorty/characters');
+        const data = await response.json();
+        const agentHolder = document.getElementById('cartoonTitle');
+
+        data.forEach(cartoon => {
+            const characterCard = document.createElement('div');
+            characterCard.classList.add('character-card');
+
+            const name = document.createElement('div');
+            name.classList.add('cartoonTitle');
+            name.textContent = `Name: ${cartoon.name}`;
+
+            const species = document.createElement('div');
+            species.classList.add('cartoonTitle');
+            species.textContent = `Species: ${cartoon.species}`;
+
+            const origin = document.createElement('div');
+            origin.classList.add('cartoonTitle');
+            origin.textContent = `Origin: ${cartoon.origin}`;
+
+            const image = document.createElement('img');
+            image.classList.add('cartoon-image');
+            image.src = cartoon.image;
+            image.alt = cartoon.image;
+
+            characterCard.appendChild(image);
+            characterCard.appendChild(name);
+            characterCard.appendChild(species);
+            characterCard.appendChild(origin);
+            agentHolder.appendChild(characterCard);
+        })
+    }
+    fetchDataAndPopulateGallery();
+
+</script>
+
+</html>
